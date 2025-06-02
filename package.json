@@ -13,12 +13,17 @@
     "lint:fix": "prettier --write .",
     "test": "jest",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage"
+    "test:coverage": "jest --coverage",
+    "migration:create": "node-pg-migrate -m infra/migrations create",
+    "migration:up": "node-pg-migrate -m infra/migrations --envPath .env.development up",
+    "migration:down": "node-pg-migrate -m infra/migrations --envPath .env.development down"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "dotenv": "16.4.4",
     "next": "^15.3.1",
+    "node-pg-migrate": "^8.0.1",
     "pg": "^8.16.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
