@@ -8,7 +8,7 @@ export default async function migrations(req, res) {
   const defaultMigrationsOptions = {
     dbClient: dbClient,
     dryRun: true,
-    dir: join("infra", "migrations"),
+    dir: join(process.cwd(), "infra", "migrations"),
     direction: "up",
     verbose: true,
     migrationsTable: "pgmigrations",
@@ -16,7 +16,7 @@ export default async function migrations(req, res) {
 
   if (req.method === "GET") {
     const pendingMigrations = await runner(defaultMigrationsOptions);
-    
+
     await dbClient.end();
 
     return res.status(200).json(pendingMigrations);
@@ -27,7 +27,7 @@ export default async function migrations(req, res) {
       ...defaultMigrationsOptions,
       dryRun: false,
     });
-    
+
     await dbClient.end();
 
     if (migratedMigrations.length > 0) {
